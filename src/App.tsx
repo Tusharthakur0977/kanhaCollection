@@ -21,6 +21,7 @@ function App() {
                 path="/*" 
                 element={
                   <>
+                  
                     <Navbar />
                     <Routes>
                       <Route path="/" element={<Home />} />
