@@ -1,3 +1,12 @@
 {
-  "/page": "app/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/auth/page": "app/auth/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/page": "app/page.js",
+  "/(main)/orders/page": "app/(main)/orders/page.js",
+  "/(main)/about/page": "app/(main)/about/page.js",
+  "/(main)/products/page": "app/(main)/products/page.js",
+  "/(main)/cart/page": "app/(main)/cart/page.js",
+  "/(main)/wishlist/page": "app/(main)/wishlist/page.js",
+  "/(main)/profile/page": "app/(main)/profile/page.js"
 }

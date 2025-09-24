@@ -1,0 +1,12 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/auth/page": "/auth",
+  "/admin/page": "/admin",
+  "/page": "/",
+  "/(main)/orders/page": "/orders",
+  "/(main)/about/page": "/about",
+  "/(main)/products/page": "/products",
+  "/(main)/cart/page": "/cart",
+  "/(main)/wishlist/page": "/wishlist",
+  "/(main)/profile/page": "/profile"
+}

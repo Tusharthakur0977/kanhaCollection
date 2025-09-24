@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "images": {
+    "deviceSizes": [
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1920,
+      2048,
+      3840
+    ],
+    "imageSizes": [
+      16,
+      32,
+      48,
+      64,
+      96,
+      128,
+      256,
+      384
+    ],
+    "path": "/_next/image",
+    "loader": "default",
+    "loaderFile": "",
+    "domains": [
+      "images.pexels.com",
+      "www.saajawat.com",
+      "namasteindia.co",
+      "cdn.exoticindia.com",
+      "ambihome.in",
+      "m.media-amazon.com",
+      "www.jiomart.com",
+      "maliyas.com",
+      "www.satvikstore.in",
+      "www.mypoojabox.in",
+      "5.imimg.com",
+      "urbancart.in",
+      "encrypted-tbn0.gstatic.com"
+    ],
+    "disableStaticImages": false,
+    "minimumCacheTTL": 60,
+    "formats": [
+      "image/webp"
+    ],
+    "dangerouslyAllowSVG": false,
+    "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
+    "contentDispositionType": "attachment",
+    "remotePatterns": [],
+    "unoptimized": false,
+    "sizes": [
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1920,
+      2048,
+      3840,
+      16,
+      32,
+      48,
+      64,
+      96,
+      128,
+      256,
+      384
+    ]
+  }
+}
