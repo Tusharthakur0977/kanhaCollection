@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ShoppingCart, Heart, User, Home, Menu, X, LogOut } from 'lucide-react'
 import { useAuth } from '@/app/providers'
-import { createSupabaseClient } from '@/lib/supabase'
+import { createSupabaseClient } from "@/lib/supabaseClient";
+
 import { useEffect } from 'react'
 
 export default function Navbar() {

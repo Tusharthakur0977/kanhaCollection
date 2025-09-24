@@ -6,7 +6,8 @@ import { useAuth } from '@/app/providers'
 import ProductManagement from './ProductManagement'
 import OrderManagement from './OrderManagement'
 import { Package, ShoppingCart, Users, TrendingUp } from 'lucide-react'
-import { createSupabaseClient } from '@/lib/supabase'
+import { createSupabaseClient } from "@/lib/supabaseClient";
+
 
 export default function AdminDashboard() {
   const { user, profile } = useAuth()

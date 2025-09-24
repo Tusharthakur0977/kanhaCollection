@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Heart, ShoppingCart, Trash2 } from 'lucide-react'
 import { useAuth } from '@/app/providers'
-import { createSupabaseClient } from '@/lib/supabase'
+import { createSupabaseClient } from "@/lib/supabaseClient";
+
 import { WishlistItem } from '@/types'
 
 export default function WishlistPage() {

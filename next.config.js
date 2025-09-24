@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+/** @type {import('tailwindcss').Config} */
+
 const nextConfig = {
   images: {
     domains: [
@@ -17,9 +19,6 @@ const nextConfig = {
       "encrypted-tbn0.gstatic.com",
     ],
   },
-  // experimental: {
-  //   appDir: true,
-  // },
 };
 
 module.exports = nextConfig;

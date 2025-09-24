@@ -1,5 +1,5 @@
 import ProductsPage from '@/components/ProductsPage'
-import { createSupabaseServerClient } from '@/lib/supabase'
+import { createSupabaseServerClient } from "@/lib/supabaseServer";
 
 export default async function Products() {
   const supabase = createSupabaseServerClient()

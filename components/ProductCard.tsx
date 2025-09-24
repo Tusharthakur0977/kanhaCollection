@@ -5,7 +5,8 @@ import Image from 'next/image'
 import { ShoppingCart, Heart } from 'lucide-react'
 import { Product } from '@/types'
 import { useAuth } from '@/app/providers'
-import { createSupabaseClient } from '@/lib/supabase'
+import { createSupabaseClient } from "@/lib/supabaseClient";
+
 import { useRouter } from 'next/navigation'
 
 interface ProductCardProps {

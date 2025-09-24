@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { createSupabaseClient } from '@/lib/supabase'
-import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react'
+import { createSupabaseClient } from "@/lib/supabaseClient";
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import { Eye, EyeOff, Lock, Mail, User } from 'lucide-react';
 
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false)

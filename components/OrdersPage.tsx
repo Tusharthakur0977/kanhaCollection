@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Package, Clock, CheckCircle, Truck, XCircle } from 'lucide-react'
 import { useAuth } from '@/app/providers'
-import { createSupabaseClient } from '@/lib/supabase'
+import { createSupabaseClient } from "@/lib/supabaseClient";
+
 import { Order } from '@/types'
 
 export default function OrdersPage() {

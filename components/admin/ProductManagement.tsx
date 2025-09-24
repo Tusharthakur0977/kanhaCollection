@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Plus, Edit, Trash2, Save, X } from 'lucide-react'
-import { createSupabaseClient } from '@/lib/supabase'
+import { createSupabaseClient } from "@/lib/supabaseClient";
+
 import { Product, Category } from '@/types'
 
 export default function ProductManagement() {

@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { User, Mail, Phone, MapPin, Save } from 'lucide-react'
 import { useAuth } from '@/app/providers'
-import { createSupabaseClient } from '@/lib/supabase'
+import { createSupabaseClient } from "@/lib/supabaseClient";
+
 
 export default function ProfilePage() {
   const { user, profile, refreshProfile } = useAuth()

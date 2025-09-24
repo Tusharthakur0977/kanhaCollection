@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Package, Clock, CheckCircle, Truck, XCircle, Eye } from 'lucide-react'
-import { createSupabaseClient } from '@/lib/supabase'
+import { createSupabaseClient } from "@/lib/supabaseClient";
+
 import { Order } from '@/types'
 
 export default function OrderManagement() {

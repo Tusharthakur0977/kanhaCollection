@@ -1,110 +1,118 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import { Minus, Plus, Trash2, ShoppingBag, MessageCircle } from 'lucide-react'
-import { useAuth } from '@/app/providers'
-import { createSupabaseClient } from '@/lib/supabase'
-import { CartItem } from '@/types'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { Minus, Plus, Trash2, ShoppingBag, MessageCircle } from "lucide-react";
+import { useAuth } from "@/app/providers";
+import { createSupabaseClient } from "@/lib/supabaseClient";
+
+import { CartItem } from "@/types";
 
 export default function CartPage() {
-  const { user } = useAuth()
-  const router = useRouter()
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
-  const [loading, setLoading] = useState(true)
+  const { user } = useAuth();
+  const router = useRouter();
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [customerInfo, setCustomerInfo] = useState({
-    name: '',
-    phone: '',
-    address: '',
-  })
-  const supabase = createSupabaseClient()
+    name: "",
+    phone: "",
+    address: "",
+  });
+  const supabase = createSupabaseClient();
 
   useEffect(() => {
     if (!user) {
-      router.push('/auth')
-      return
+      router.push("/auth");
+      return;
     }
-    fetchCartItems()
-  }, [user])
+    fetchCartItems();
+  }, [user]);
 
   const fetchCartItems = async () => {
-    if (!user) return
+    if (!user) return;
 
     const { data } = await supabase
-      .from('cart_items')
-      .select(`
+      .from("cart_items")
+      .select(
+        `
         *,
         product:products(*)
-      `)
-      .eq('user_id', user.id)
+      `
+      )
+      .eq("user_id", user.id);
 
     if (data) {
-      setCartItems(data)
+      setCartItems(data);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   const updateQuantity = async (id: string, quantity: number) => {
     if (quantity <= 0) {
-      await supabase.from('cart_items').delete().eq('id', id)
+      await supabase.from("cart_items").delete().eq("id", id);
     } else {
       await supabase
-        .from('cart_items')
+        .from("cart_items")
         .update({ quantity, updated_at: new Date().toISOString() })
-        .eq('id', id)
+        .eq("id", id);
     }
-    fetchCartItems()
-  }
+    fetchCartItems();
+  };
 
   const removeItem = async (id: string) => {
-    await supabase.from('cart_items').delete().eq('id', id)
-    fetchCartItems()
-  }
+    await supabase.from("cart_items").delete().eq("id", id);
+    fetchCartItems();
+  };
 
   const handleWhatsAppOrder = async () => {
     if (!customerInfo.name || !customerInfo.phone || !customerInfo.address) {
-      alert('Please fill in all customer information')
-      return
+      alert("Please fill in all customer information");
+      return;
     }
 
-    const total = cartItems.reduce((sum, item) => sum + (item.product?.price || 0) * item.quantity, 0)
+    const total = cartItems.reduce(
+      (sum, item) => sum + (item.product?.price || 0) * item.quantity,
+      0
+    );
 
     // Create order in database
     const { data: order } = await supabase
-      .from('orders')
+      .from("orders")
       .insert({
         user_id: user!.id,
         total_amount: total,
         customer_name: customerInfo.name,
         customer_phone: customerInfo.phone,
         customer_address: customerInfo.address,
-        status: 'pending'
+        status: "pending",
       })
       .select()
-      .single()
+      .single();
 
     if (order) {
       // Create order items
-      const orderItems = cartItems.map(item => ({
+      const orderItems = cartItems.map((item) => ({
         order_id: order.id,
         product_id: item.product_id,
         quantity: item.quantity,
-        price: item.product?.price || 0
-      }))
+        price: item.product?.price || 0,
+      }));
 
-      await supabase.from('order_items').insert(orderItems)
+      await supabase.from("order_items").insert(orderItems);
 
       // Clear cart
-      await supabase.from('cart_items').delete().eq('user_id', user!.id)
+      await supabase.from("cart_items").delete().eq("user_id", user!.id);
 
       // Send WhatsApp message
       const orderSummary = cartItems
         .map(
           (item) =>
-            `• ${item.product?.name} - Qty: ${item.quantity} - ₹${((item.product?.price || 0) * item.quantity).toLocaleString()}`
+            `• ${item.product?.name} - Qty: ${item.quantity} - ₹${(
+              (item.product?.price || 0) * item.quantity
+            ).toLocaleString()}`
         )
-        .join('\n')
+        .join("\n");
 
       const message = `🙏 *New Order from Kanha Collection* 🙏
 
@@ -118,17 +126,22 @@ ${orderSummary}
 
 *Total Amount: ₹${total.toLocaleString()}*
 
-Please confirm the order. 🕉️`
+Please confirm the order. 🕉️`;
 
-      const whatsappUrl = `https://wa.me/918544737965?text=${encodeURIComponent(message)}`
-      window.open(whatsappUrl, '_blank')
+      const whatsappUrl = `https://wa.me/918544737965?text=${encodeURIComponent(
+        message
+      )}`;
+      window.open(whatsappUrl, "_blank");
 
       // Redirect to orders page
-      router.push('/orders')
+      router.push("/orders");
     }
-  }
+  };
 
-  const total = cartItems.reduce((sum, item) => sum + (item.product?.price || 0) * item.quantity, 0)
+  const total = cartItems.reduce(
+    (sum, item) => sum + (item.product?.price || 0) * item.quantity,
+    0
+  );
 
   if (loading) {
     return (
@@ -140,7 +153,7 @@ Please confirm the order. 🕉️`
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   if (cartItems.length === 0) {
@@ -164,7 +177,7 @@ Please confirm the order. 🕉️`
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -181,8 +194,8 @@ Please confirm the order. 🕉️`
                   className="flex items-center py-6 border-b border-gray-200 last:border-b-0"
                 >
                   <Image
-                    src={item.product?.image || ''}
-                    alt={item.product?.name || ''}
+                    src={item.product?.image || ""}
+                    alt={item.product?.name || ""}
                     width={80}
                     height={80}
                     className="w-20 h-20 object-cover rounded-lg"
@@ -192,7 +205,9 @@ Please confirm the order. 🕉️`
                     <h3 className="font-semibold text-lg text-gray-800">
                       {item.product?.name}
                     </h3>
-                    <p className="text-gray-600 text-sm">{item.product?.description}</p>
+                    <p className="text-gray-600 text-sm">
+                      {item.product?.description}
+                    </p>
                     <p className="text-orange-600 font-bold text-lg">
                       ₹{item.product?.price.toLocaleString()}
                     </p>
@@ -239,7 +254,10 @@ Please confirm the order. 🕉️`
                       {item.product?.name} x {item.quantity}
                     </span>
                     <span>
-                      ₹{((item.product?.price || 0) * item.quantity).toLocaleString()}
+                      ₹
+                      {(
+                        (item.product?.price || 0) * item.quantity
+                      ).toLocaleString()}
                     </span>
                   </div>
                 ))}
@@ -302,5 +320,5 @@ Please confirm the order. 🕉️`
         </div>
       </div>
     </div>
-  )
+  );
 }
